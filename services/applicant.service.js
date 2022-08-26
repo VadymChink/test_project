@@ -10,4 +10,7 @@ module.exports={
     deleteApplicant:(params)=>{
         return Applicant.deleteOne(params);
     },
+    findOne:(params)=>{
+        return Applicant.findOne(params);
+    },
 }
