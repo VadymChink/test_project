@@ -1,8 +1,7 @@
 const {Types} = require("mongoose");
 
 const {CError} = require("../errors");
-const {applicantService} = require("../services");
-
+const {applicantService, positionService} = require("../services");
 
 module.exports = {
     isDataValid: (validator, dataType = 'body') => (req, res, next) => {
@@ -20,29 +19,39 @@ module.exports = {
         }
     },
 
-    isIdValid: (params) =>(req, res, next) => {
+    isIdValid: (params) => (req, res, next) => {
         try {
             const id = req.params[params];
 
-
-            if (!Types.ObjectId.isValid(id)){
+            if (!Types.ObjectId.isValid(id)) {
                 return next(new CError('Id not valid'))
             }
 
             next()
-        }catch (e) {
+        } catch (e) {
             next(e);
         }
     },
 
-    isPresent:(params, type)=> async (req, res, next) => {
+    isPresent: (params) => async (req, res, next) => {
         try {
             const id = req.params[params];
 
-            const applicant = await applicantService.findOne({_id: id});
+            if (params === 'applicant_id') {
+                const applicant = await applicantService.findOne({_id: id});
 
-            if (!applicant) {
-                return next(new CError(`${type} with ID: ${id} not found`, 404));
+                if (!applicant) {
+                    return next(new CError(`Applicant with ID: ${id} not found`, 404));
+                }
+            }
+            if (params === 'position_id') {
+                const position = await positionService.positionById({_id: id});
+
+                if (!position) {
+                    return next(new CError(`Position with ID: ${id} not found`, 404));
+
+                }
+                req.position = position;
             }
 
             next();

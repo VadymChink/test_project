@@ -16,20 +16,20 @@ router.post('/',
 
 router.get('/:position_id',
     commonMdlwr.isIdValid('position_id'),
-    commonMdlwr.isPresent('position_id','Position'),
+    commonMdlwr.isPresent('position_id'),
     positionsController.positionById
 );
 
 router.patch('/:position_id',
     commonMdlwr.isIdValid('position_id'),
     commonMdlwr.isDataValid(positionValidator.PositionToPatch),
-    commonMdlwr.isPresent('position_id','Position'),
+    commonMdlwr.isPresent('position_id'),
     positionsController.updatePosition
 );
 
 router.delete('/:position_id',
     commonMdlwr.isIdValid('position_id'),
-    commonMdlwr.isPresent('position_id','Position'),
+    commonMdlwr.isPresent('position_id'),
     positionsController.deletePosition
 );
 

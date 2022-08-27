@@ -14,13 +14,13 @@ router.post('/',
 router.put('/:applicant_id',
     commonMdlwr.isIdValid('applicant_id'),
     commonMdlwr.isDataValid(applicantValidator.Application),
-    commonMdlwr.isPresent('applicant_id','Applicant'),
+    commonMdlwr.isPresent('applicant_id'),
     applicantsController.updateApplicant
 );
 
 router.delete('/:applicant_id',
     commonMdlwr.isIdValid('applicant_id'),
-    commonMdlwr.isPresent('applicant_id','Applicant'),
+    commonMdlwr.isPresent('applicant_id'),
     applicantsController.deleteApplicant
 );
 

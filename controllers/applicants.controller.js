@@ -1,9 +1,12 @@
-const {applicantService} = require("../services");
+const {applicantService, nodemailerService} = require("../services");
+const {emailActions} = require("../constants");
 
 module.exports = {
     createApplicant: async (req, res, next) => {
         try {
+            const {email} = req.body;
             const newApplicator = await applicantService.createApplicant(req.body);
+            await nodemailerService.sendMail(email, emailActions.WELCOME);
 
             res.status(201).json(newApplicator);
         } catch (e) {

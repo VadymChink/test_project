@@ -1,0 +1,25 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+
+}
+
+.footer {
+    color: red;
+    background: aqua;
+    font-size: 24px;
+}
+
+.block {
+    border: 2px solid black;
+    border-radius: 30px;
+    background: #ff33;
+    width: 300px;
+    margin: 0 auto 20px;
+    padding: 10px;
+}
+.blockRemovedPosition{
+    background: red;
+}

@@ -13,4 +13,7 @@ module.exports={
     findOne:(params)=>{
         return Applicant.findOne(params);
     },
+    findAll:(params={})=>{
+        return Applicant.find(params);
+    },
 }

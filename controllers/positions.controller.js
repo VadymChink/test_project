@@ -1,4 +1,5 @@
-const {positionService} = require("../services");
+const {positionService, emailService} = require("../services");
+const {emailActions} = require("../constants");
 
 module.exports = {
     allPosition: async (req, res, next) => {
@@ -7,7 +8,7 @@ module.exports = {
 
             const searchObject = {...req.query};
 
-            if (tag){
+            if (tag) {
                 Object.assign(searchObject, {description: {$regex: tag, $options: 'i'}})
             }
 
@@ -33,6 +34,8 @@ module.exports = {
         try {
             const newPosition = await positionService.createPosition(req.body);
 
+            await emailService.sendMailWhenCreateAndRemovePosition(newPosition, emailActions.NEW_POSITIONS);
+
             res.status(201).json(newPosition);
 
         } catch (e) {
@@ -55,6 +58,8 @@ module.exports = {
             const {position_id} = req.params;
 
             await positionService.deletePosition({_id: position_id})
+
+            await emailService.sendMailWhenCreateAndRemovePosition(req.position, emailActions.REMOVED_POSITIONS);
 
             res.sendStatus(204);
         } catch (e) {
