@@ -1,0 +1,570 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Test project"
+  },
+  "paths": {
+    "/positions": {
+      "get": {
+        "description": "Get all positions",
+        "tags": [
+          "Positions"
+        ],
+        "operationId": "getAllPosition",
+        "parameters": [
+          {
+            "name": "category",
+            "type": "string",
+            "in": "query",
+            "description": "category must be one of nodejs, angular, javascript, react"
+          },
+          {
+            "name": "level",
+            "type": "string",
+            "in": "query",
+            "description": "level must be one of junior, middle, senior"
+          },
+          {
+            "name": "tag",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Position"
+              }
+            }
+          },
+          "400": {
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Something goes wrong"
+                },
+                "code": {
+                  "type": "number",
+                  "example": 400
+                }
+              }
+            },
+            "description": "Some error "
+          }
+        }
+      },
+      "post": {
+        "description": "create position",
+        "tags": [
+          "Positions"
+        ],
+        "operationId": "createPosition",
+        "parameters": [
+          {
+            "name": "category",
+            "type": "string",
+            "in": "formData",
+            "description": "category must be one of nodejs, angular, javascript, react",
+            "required": true
+          },
+          {
+            "name": "level",
+            "type": "string",
+            "in": "formData",
+            "description": "level must be one of junior, middle, senior",
+            "required": true
+          },
+          {
+            "name": "company",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "japaneseRequired",
+            "in": "formData",
+            "type": "boolean",
+            "required": true
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Position"
+            }
+          },
+          "400": {
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Something goes wrong"
+                },
+                "code": {
+                  "type": "number",
+                  "example": 400
+                }
+              }
+            },
+            "description": "Some error "
+          }
+        }
+      }
+    },
+    "/positions/{position_id}": {
+      "get": {
+        "description": "get position by id",
+        "tags": [
+          "Positions"
+        ],
+        "operationId": "getById",
+        "parameters": [
+          {
+            "name": "position_id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Position"
+            }
+          },
+          "400": {
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Something goes wrong"
+                },
+                "code": {
+                  "type": "number",
+                  "example": 400
+                }
+              }
+            },
+            "description": "Some error "
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Something not found"
+                },
+                "code": {
+                  "type": "number",
+                  "example": 404
+                }
+              }
+            },
+            "description": "Some not found"
+          }
+        }
+      },
+      "patch": {
+        "description": "update position by id",
+        "tags": [
+          "Positions"
+        ],
+        "operationId": "updateById",
+        "parameters": [
+          {
+            "name": "position_id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "in": "formData"
+          },
+          {
+            "name": "japaneseRequired",
+            "type": "string",
+            "in": "formData"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Position"
+            }
+          },
+          "400": {
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Something goes wrong"
+                },
+                "code": {
+                  "type": "number",
+                  "example": 400
+                }
+              }
+            },
+            "description": "Some error "
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Something not found"
+                },
+                "code": {
+                  "type": "number",
+                  "example": 404
+                }
+              }
+            },
+            "description": "Some not found"
+          }
+        }
+      },
+      "delete": {
+        "description": "delete position by id",
+        "tags": [
+          "Positions"
+        ],
+        "operationId": "deleteById",
+        "parameters": [
+          {
+            "name": "position_id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "schema": {
+              "properties": {
+              }
+            },
+            "description": "Position deleted"
+          },
+          "400": {
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Something goes wrong"
+                },
+                "code": {
+                  "type": "number",
+                  "example": 400
+                }
+              }
+            },
+            "description": "Some error "
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Something not found"
+                },
+                "code": {
+                  "type": "number",
+                  "example": 404
+                }
+              }
+            },
+            "description": "Some not found"
+          }
+        }
+      }
+    },
+    "/applicants": {
+      "post": {
+        "description": "create applicant",
+        "tags": [
+          "Applications"
+        ],
+        "operationId": "createApplicant",
+        "parameters": [
+          {
+            "name": "categories",
+            "type": "array",
+            "in": "formData",
+            "description": "category must be one or many of nodejs, angular, javascript, react",
+            "required": true
+          },
+          {
+            "name": "level",
+            "type": "string",
+            "in": "formData",
+            "description": "level must be one of junior, middle, senior",
+            "required": true
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "japaneseKnowledge",
+            "in": "formData",
+            "type": "boolean",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Application"
+            }
+          },
+          "400": {
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Something goes wrong"
+                },
+                "code": {
+                  "type": "number",
+                  "example": 400
+                }
+              }
+            },
+            "description": "Some error "
+          }
+        }
+      }
+    },
+    "/applicants/{applicant_id}": {
+      "put": {
+        "description": "update applicant",
+        "tags": [
+          "Applications"
+        ],
+        "operationId": "updateApplicant",
+        "parameters": [
+          {
+            "name": "applicant_id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "categories",
+            "type": "array",
+            "in": "formData",
+            "description": "category must be one or many of nodejs, angular, javascript, react",
+            "required": true
+          },
+          {
+            "name": "level",
+            "type": "string",
+            "in": "formData",
+            "description": "level must be one of junior, middle, senior",
+            "required": true
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "japaneseKnowledge",
+            "in": "formData",
+            "type": "boolean",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Application"
+            }
+          },
+          "400": {
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Something goes wrong"
+                },
+                "code": {
+                  "type": "number",
+                  "example": 400
+                }
+              }
+            },
+            "description": "Some error "
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Something not found"
+                },
+                "code": {
+                  "type": "number",
+                  "example": 404
+                }
+              }
+            },
+            "description": "Some not found"
+          }
+        }
+      },
+      "delete": {
+        "description": "delete applicant",
+        "tags": [
+          "Applications"
+        ],
+        "operationId": "deleteApplicant",
+        "parameters": [
+          {
+            "name": "applicant_id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "schema": {
+            }
+          },
+          "400": {
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Something goes wrong"
+                },
+                "code": {
+                  "type": "number",
+                  "example": 400
+                }
+              }
+            },
+            "description": "Some error "
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Something not found"
+                },
+                "code": {
+                  "type": "number",
+                  "example": 404
+                }
+              }
+            },
+            "description": "Some not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Position": {
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "630887a57868c91f91fa7244",
+          "description": "MongoId"
+        },
+        "category": {
+          "type": "string",
+          "example": "nodejs",
+          "description": "skills"
+        },
+        "level": {
+          "type": "string",
+          "example": "junior",
+          "description": "title"
+        },
+        "company": {
+          "type": "string",
+          "example": "Rakuten",
+          "description": "Name of company"
+        },
+        "description": {
+          "type": "string",
+          "example": "We are looking for people who are flexible and highly skilled, with an interest in languages and other cultures.",
+          "description": "position descriptions"
+        },
+        "japaneseRequired": {
+          "type": "boolean",
+          "description": "true (Japanese language is ok) or false (Japanese language is not ok)"
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2022-08-28T16:09:38.609Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2022-08-28T16:10:13.112Z"
+        }
+      }
+    },
+    "Application": {
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "630887a57868c91f91fa7244",
+          "description": "MongoId"
+        },
+        "categories": {
+          "type": "array",
+          "example": "[\"react\", \"angular\", \"nodejs\"]",
+          "description": "skills"
+        },
+        "level": {
+          "type": "string",
+          "example": "junior",
+          "description": "title"
+        },
+        "email": {
+          "type": "string",
+          "example": "email@gmail.com",
+          "description": "Name of company"
+        },
+        "japaneseKnowledge": {
+          "type": "boolean",
+          "description": "true (Japanese language is ok) or false (Japanese language is not ok)"
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2022-08-28T16:09:38.609Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2022-08-28T16:10:13.112Z"
+        }
+      }
+    }
+  }
+}

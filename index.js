@@ -2,9 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const {join} = require('path');
 require('dotenv').config({path: join(process.cwd(),'environment', '.env')})
+const swaggerUi = require('swagger-ui-express');
 
 const {config} = require("./constants");
 const {applicantsRouter, positionsRouter} = require("./routes");
+const swaggerDocument = require('./swagger.json');
 
 const app = express();
 mongoose.connect('mongodb+srv://VadymVinnichuk:1t2t3t4t5t@cluster0.jdrlr.mongodb.net/test');
@@ -15,6 +17,9 @@ app.use(express.urlencoded({extended: true}));
 //routing
 app.use('/applicants', applicantsRouter);
 app.use('/positions', positionsRouter);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.use('*', (req, res) => {
     res.status(404).json('Route not found');
 });

@@ -21,7 +21,7 @@ const PositionSchema = new Schema({
         type: Boolean,
         required: true,
     }
-})
+}, {timestamps: true})
 
 module.exports = model('positions', PositionSchema)
 
